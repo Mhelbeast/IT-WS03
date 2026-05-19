@@ -1,80 +1,59 @@
-/* ============================================================
-   JOBSEEKER — Deep Navy + Warm Gold palette
-   ============================================================ */
-
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Space+Grotesk:wght@500;600;700&display=swap');
-
 :root {
-  /* --- New palette: deep navy + warm gold --- */
-  --background: #f8f9fc;
-  --foreground: #0d1b2e;
-  --muted: #eef1f7;
-  --muted-foreground: #6b7a94;
-  --border: #d6dce8;
-  --input: #c4ccd9;
-  --ring: #1e3a5f;
-
-  --primary: #1b3458;
-  --primary-hover: #24467a;
+  --background: #fdf8f2;
+  --foreground: #2b1a0e;
+  --muted: #f5ede0;
+  --muted-foreground: #7a6050;
+  --border: #e5d5c0;
+  --input: #d4c0a8;
+  --ring: #c05a1f;
+  --primary: #c05a1f;
+  --primary-hover: #a04a18;
   --primary-foreground: #ffffff;
-
-  --secondary: #e4ebf5;
-  --secondary-foreground: #1b3458;
-
-  --accent: #fdf6e3;
-  --accent-foreground: #7a5000;
-
+  --secondary: #fdeee4;
+  --secondary-foreground: #2b1a0e;
+  --accent: #f5ede0;
+  --accent-foreground: #7a3a10;
   --destructive: #c0392b;
   --destructive-foreground: #ffffff;
-
   --card: #ffffff;
-  --card-foreground: #0d1b2e;
-
-  --header: #0d1b2e;
-  --header-foreground: #e4ebf5;
-
-  --footer: #0d1b2e;
-  --footer-foreground: #8fa4c0;
-
+  --card-foreground: #2b1a0e;
+  --header: #2b1a0e;
+  --header-foreground: #f5ede0;
+  --footer: #2b1a0e;
+  --footer-foreground: #a08060;
   --success: #eaf4ec;
   --success-foreground: #1a5c30;
   --error: #fdecea;
   --error-foreground: #8b1c1c;
-
-  --gold: #c9920a;
-  --gold-light: #fdf0cc;
-  --gold-hover: #a87808;
-
+  --gold: #c05a1f;
+  --gold-light: #fdeee4;
+  --gold-hover: #a04a18;
   --radius: 0.625rem;
   --radius-sm: 0.375rem;
-
-  /* layered shadows */
-  --shadow-xs: 0 1px 2px 0 rgb(13 27 46 / 0.05);
-  --shadow-sm: 0 1px 3px 0 rgb(13 27 46 / 0.07), 0 1px 2px -1px rgb(13 27 46 / 0.05);
-  --shadow:    0 4px 6px -1px rgb(13 27 46 / 0.08), 0 2px 4px -2px rgb(13 27 46 / 0.05);
-  --shadow-md: 0 10px 15px -3px rgb(13 27 46 / 0.10), 0 4px 6px -4px rgb(13 27 46 / 0.05);
-  --shadow-ring: 0 0 0 3px rgb(30 58 95 / 0.20);
-
+  --shadow-xs: 0 1px 2px 0 rgb(43 26 14 / 0.05);
+  --shadow-sm: 0 1px 3px 0 rgb(43 26 14 / 0.07), 0 1px 2px -1px rgb(43 26 14 / 0.05);
+  --shadow:    0 4px 6px -1px rgb(43 26 14 / 0.08), 0 2px 4px -2px rgb(43 26 14 / 0.05);
+  --shadow-md: 0 10px 15px -3px rgb(43 26 14 / 0.10), 0 4px 6px -4px rgb(43 26 14 / 0.05);
+  --shadow-ring: 0 0 0 3px rgb(192 90 31 / 0.20);
   --font-sans: 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-heading: 'Space Grotesk', system-ui, -apple-system, sans-serif;
   --container-max: 72rem;
   --space-page-y: 1.25rem;
   --space-section: 1.5rem;
 }
-
-/* --- Legacy aliases --- */
 :root {
   --color-header: var(--header);
   --color-accent: var(--primary);
   --color-page-bg: var(--muted);
   --color-card-bg: var(--card);
   --color-heading: var(--foreground);
-  --color-body-text: #1e2d42;
+  --color-body-text: #4a2e1a;
   --color-link: var(--primary);
   --color-tag-bg: var(--secondary);
   --color-tag-text: var(--secondary-foreground);
   --color-footer: var(--footer);
-  --showcase-overlay: rgba(10, 20, 40, 0.68);
+  --showcase-overlay: rgba(43, 26, 14, 0.68);
   --font-body: var(--font-sans);
   --border-radius: var(--radius);
   --card-shadow: var(--shadow-sm);
