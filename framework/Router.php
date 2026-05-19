@@ -1,9 +1,13 @@
 <?php
 
-class Router {
+namespace Framework;
+
+class Router
+{
     protected $routes = [];
 
-    public function registerRoute($method, $uri, $controller) {
+    public function registerRoute($method, $uri, $controller)
+    {
         $this->routes[] = [
             'method' => $method,
             'uri' => $uri,
@@ -11,29 +15,35 @@ class Router {
         ];
     }
 
-    public function get($uri, $controller) {
+    public function get($uri, $controller)
+    {
         $this->registerRoute('GET', $uri, $controller);
     }
 
-    public function post($uri, $controller) {
+    public function post($uri, $controller)
+    {
         $this->registerRoute('POST', $uri, $controller);
     }
 
-    public function put($uri, $controller) {
+    public function put($uri, $controller)
+    {
         $this->registerRoute('PUT', $uri, $controller);
     }
 
-    public function delete($uri, $controller) {
+    public function delete($uri, $controller)
+    {
         $this->registerRoute('DELETE', $uri, $controller);
     }
 
-    public function error($httpCode = 404) {
+    public function error($httpCode = 404)
+    {
         loadView("error/{$httpCode}");
 
         exit;
     }
 
-    public function route($uri, $method) {
+    public function route($uri, $method)
+    {
         foreach ($this->routes as $route) {
             if ($route['method'] !== $method) {
                 continue;
@@ -72,5 +82,3 @@ class Router {
         $this->error(404); // No route matches
     }
 }
-
-?>

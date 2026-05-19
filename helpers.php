@@ -5,7 +5,8 @@
  * @param string $path
  * @return string
  */
-function basePath($path = "") {
+function basePath($path = "")
+{
     return __DIR__ . "/" . $path;
 }
 
@@ -15,8 +16,9 @@ function basePath($path = "") {
  * @param array $data
  * @return void
  */
-function loadView($name, $data = []) {
-    $viewPath = basePath("views/{$name}.view.php");
+function loadView($name, $data = [])
+{
+    $viewPath = basePath("app/views/{$name}.view.php");
 
     // Ensures that the path exist before loading
     if (file_exists($viewPath)) {
@@ -32,8 +34,9 @@ function loadView($name, $data = []) {
  * @param string $name
  * @return null
  */
-function loadPartial($name) {
-    $partialPath = basePath("views/partials/{$name}.php");
+function loadPartial($name)
+{
+    $partialPath = basePath("app/views/partials/{$name}.php");
 
     // Ensures that the path exist before loading
     if (file_exists($partialPath)) {
@@ -41,7 +44,7 @@ function loadPartial($name) {
         // extract will create local variables inside this function scope
         // but we want the partial to have access to them, so we use
         // an isolated scope by including within a closure.
-        return (function($partialPath, $data = []) {
+        return (function ($partialPath, $data = []) {
             extract($data, EXTR_SKIP);
             require $partialPath;
         })($partialPath, func_get_args()[1] ?? []);
@@ -57,8 +60,7 @@ function loadPartial($name) {
  * @param string $salary
  * @return string
  */
-function formatSalary($salary) {
+function formatSalary($salary)
+{
     return "$" . number_format(floatval($salary), 0, '.', ',');
 }
-
-?>

@@ -1,170 +1,255 @@
 <?= loadPartial("head"); ?>
 
+<!-- Nav -->
 <?= loadPartial("navbar"); ?>
 
 <?php
-$salaryInput = isset($_GET['salary']) ? trim((string) $_GET['salary']) : '';
-$workMode = $_GET['mode'] ?? 'remote';
-$experience = $_GET['experience'] ?? 'junior';
-$hasPortfolio = ($_GET['portfolio'] ?? '') === 'yes';
-$workMode = in_array($workMode, ['remote', 'hybrid', 'onsite'], true) ? $workMode : 'remote';
-$experience = in_array($experience, ['junior', 'mid', 'senior'], true) ? $experience : 'junior';
+// --- Input Sanitization ---
+$salaryInput    = isset($_GET['salary']) ? trim((string) $_GET['salary']) : '';
+$workMode       = $_GET['mode']       ?? 'remote';
+$experience     = $_GET['experience'] ?? 'junior';
+$portfolioInput = $_GET['portfolio']  ?? '';
+$userSkills     = $_GET['skills'] ?? []; // array from checklist
+
+$workMode   = in_array($workMode,   ['remote', 'hybrid', 'onsite'],           true) ? $workMode   : 'remote';
+$experience = in_array($experience, ['junior', 'mid', 'senior'],              true) ? $experience : 'junior';
+$hasPortfolio = $portfolioInput === 'yes';
 
 $salary = is_numeric($salaryInput) ? (float) $salaryInput : null;
-$modeLabel = $workMode === 'remote' ? 'Remote-first' : ($workMode === 'hybrid' ? 'Hybrid' : 'On-site');
-$experienceLabel = $experience === 'senior' ? 'Senior' : ($experience === 'mid' ? 'Mid-level' : 'Junior');
-$baseScore = $salary !== null ? ($salary >= 90000 ? 38 : ($salary >= 55000 ? 26 : 16)) : 0;
-$modeScore = $workMode === 'remote' ? 24 : ($workMode === 'hybrid' ? 18 : 12);
-$experienceScore = $experience === 'senior' ? 24 : ($experience === 'mid' ? 18 : 12);
-$portfolioScore = $hasPortfolio ? 14 : 4;
-$fitScore = min(100, $baseScore + $modeScore + $experienceScore + $portfolioScore);
 
-// Job seeker suitability content
-$suitability = $salary !== null ? ($fitScore >= 78 ? 'Highly suitable' : ($fitScore >= 55 ? 'Moderately suitable' : 'Low suitability')) : null;
-$isHighSuitability = $fitScore >= 78;
-$isMidSuitability = $fitScore >= 55 && $fitScore < 78;
-$isLowSuitability = $fitScore < 55;
-$advice = $salary !== null
-    ? ($fitScore >= 78
-        ? 'Apply confidently and highlight your strengths.'
-        : ($fitScore >= 55
-            ? 'Consider improving skills or portfolio before applying.'
-            : 'Focus on gaining experience before pursuing this role.'))
+// --- Role Required Skills (Static Checklist) ---
+$requiredSkills = [
+    'PHP',
+    'JavaScript',
+    'React',
+    'Node.js',
+    'Python',
+    'HTML/CSS',
+    'Git',
+    'Docker',
+    'SQL',
+    'Problem Solving',
+    'Figma',
+    'Framer'
+];
+
+// --- Scoring ---
+$salaryScore = $salary !== null
+    ? ($salary < 55000 ? 30 : ($salary < 90000 ? 20 : 10))
+    : 0;
+
+$modeScore = $workMode === 'onsite'  ? 20
+    : ($workMode === 'hybrid' ? 15 : 10);
+
+$experienceScore = $experience === 'senior' ? 25
+    : ($experience === 'mid'   ? 18 : 10);
+
+$portfolioScore = $hasPortfolio ? 15 : 4;
+
+// --- Skill Categories ---
+$designSkills = ['Figma', 'Framer'];
+$frontendSkills = ['JavaScript', 'React', 'HTML/CSS'];
+$backendSkills = ['PHP', 'Node.js', 'Python', 'Docker', 'SQL'];
+$devToolsSkills = ['Git', 'Problem Solving'];
+
+// --- Category Skill Match Calculation ---
+if (!is_array($userSkills)) $userSkills = [];
+
+$designMatch = array_intersect($userSkills, $designSkills);
+$designPercent = count($designSkills) > 0 ? min(100, round((count($designMatch) / count($designSkills)) * 100) + ($hasPortfolio ? 15 : 0)) : 0;
+
+$frontendMatch = array_intersect($userSkills, $frontendSkills);
+$frontendPercent = count($frontendSkills) > 0 ? min(100, round((count($frontendMatch) / count($frontendSkills)) * 100) + ($hasPortfolio ? 15 : 0)) : 0;
+
+$backendMatch = array_intersect($userSkills, $backendSkills);
+$backendPercent = count($backendSkills) > 0 ? min(100, round((count($backendMatch) / count($backendSkills)) * 100) + ($hasPortfolio ? 15 : 0)) : 0;
+
+$devToolsMatch = array_intersect($userSkills, $devToolsSkills);
+$devToolsPercent = count($devToolsSkills) > 0 ? min(100, round((count($devToolsMatch) / count($devToolsSkills)) * 100) + ($hasPortfolio ? 15 : 0)) : 0;
+
+// --- Determine Primary Skill Category ---
+$categoryScores = [
+    'Design' => $designPercent,
+    'Frontend' => $frontendPercent,
+    'Backend' => $backendPercent,
+    'DevTools' => $devToolsPercent
+];
+
+$primaryCategory = array_key_first(array_filter($categoryScores, fn($v) => $v > 0));
+$primaryPercent = $primaryCategory ? $categoryScores[$primaryCategory] : 0;
+
+// --- Overall Fit Score ---
+$allSkillsSelected = count($userSkills);
+$matchedSkills = array_intersect($userSkills, $requiredSkills);
+$skillsScore = count($requiredSkills) > 0 ? round((count($matchedSkills) / count($requiredSkills)) * 10) : 0;
+
+$fitScore = min(100, $salaryScore + $modeScore + $experienceScore + $portfolioScore + $skillsScore);
+
+// --- Suitability Verdict ---
+$suitability = $salary !== null
+    ? ($fitScore >= 75 ? 'Highly Suitable'
+        : ($fitScore >= 50 ? 'Moderately Suitable' : 'Low Suitability'))
     : null;
+
+$isHighSuitability = $fitScore >= 75;
+$isMidSuitability  = $fitScore >= 50 && $fitScore < 75;
+$isLowSuitability  = $fitScore < 50;
+$gaugeColor = $isHighSuitability ? '#22c55e' : ($isMidSuitability ? '#f59e0b' : '#ef4444');
+
+// --- Dynamic Advice based on Skill Category ---
+if ($salary !== null && $allSkillsSelected > 0) {
+    if ($primaryCategory === 'Design') {
+        $advice = $designPercent >= 100
+            ? 'Highly Suitable for Design! You have all design tools and strong portfolio support. You are highly competitive for UI/UX and product design roles. Showcase your best design work and apply with confidence!'
+            : ($designPercent >= 50
+                ? 'Strong Design Foundation! You have key design skills. Add one more design tool and build portfolio projects to strengthen your profile.'
+                : 'Design skills detected. Add Figma or Framer and build design projects to improve your suitability.');
+    } elseif ($primaryCategory === 'Frontend') {
+        $advice = $frontendPercent >= 100
+            ? 'Highly Suitable for Frontend Development! You have all frontend essentials and portfolio support. You are highly competitive for frontend engineer roles. Showcase your projects and apply immediately!'
+            : ($frontendPercent >= 67
+                ? 'Strong Frontend Skills! You have solid frontend fundamentals. Add one more skill (JavaScript, React, or HTML/CSS) and build practice projects to strengthen your profile.'
+                : 'Frontend fundamentals developing. Build more hands-on projects with React and JavaScript to increase your suitability.');
+    } elseif ($primaryCategory === 'Backend') {
+        $advice = $backendPercent >= 100
+            ? 'Highly Suitable for Backend Development! You have comprehensive backend skills and portfolio support. You are highly competitive for backend and full-stack roles. Highlight your architecture and best projects!'
+            : ($backendPercent >= 60
+                ? 'Strong Backend Foundation! You have solid backend knowledge. Add more database or containerization skills and build real-world backend projects.'
+                : 'Backend skills emerging. Strengthen your knowledge in databases (SQL) and server frameworks with practical projects.');
+    } elseif ($primaryCategory === 'DevTools') {
+        $advice = 'You have development tools and soft skills. Combine with frontend or backend technologies to create a well-rounded developer profile with demonstrable projects.';
+    } else {
+        $advice = ($fitScore >= 75
+            ? 'You are a strong candidate. Apply with confidence and highlight your most relevant achievements.'
+            : ($fitScore >= 50
+                ? 'You have potential but could improve your standing. Build more skills, gain more experience, or align your salary expectations closer to market rate.'
+                : 'Your profile needs more development. Focus on upskilling and creating a strong portfolio with real projects.'));
+    }
+} else {
+    $advice = null;
+}
 ?>
 
 <main class="page-section">
     <div class="site-container">
-        <header class="section-header">
+        <div class="section-header" style="justify-content: center; border: 1px solid #d6dce8; padding: 2rem; border-radius: 0.625rem; margin-bottom: 2rem; text-align: center;">
             <div>
-                <h1 class="section-title">Job Seeker Suitability</h1>
-                <p class="section-subtitle">A simple tool that evaluates a job seeker's fit for a role</p>
+                <h1 class="section-title" style="font-size: 2.5rem; margin-bottom: 0.5rem;">Job Seeker Suitability</h1>
+                <p class="section-subtitle">Evaluate how competitive your profile is for a given role</p>
             </div>
-        </header>
+        </div>
 
-        <!-- Form Section -->
-        <div style="margin-bottom: 3rem;">
-            <form method="GET" action="/ternary" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 2rem;">
-                <div>
-                    <label style="display: block; font-size: 0.75rem; color: var(--muted-foreground); font-weight: 600; margin-bottom: 0.5rem; text-transform: uppercase;">Salary</label>
-                    <input id="salary" name="salary" type="number" min="0" step="1000" value="<?= htmlspecialchars($salaryInput) ?>" placeholder="75000" class="input" />
+        <!-- Form Card -->
+        <div style="background: #fff; border: 1px solid #d6dce8; border-radius: 0.625rem; padding: 2rem; margin-bottom: 2rem;">
+            <form method="GET" action="/ternary">
+                <!-- Input Grid -->
+                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-bottom: 1.5rem;">
+                    <!-- Asking Salary -->
+                    <div>
+                        <label for="salary" style="display: block; font-size: 0.75rem; font-weight: 600; color: #6b7280; margin-bottom: 0.5rem; text-transform: uppercase;">Asking Salary (USD)</label>
+                        <input id="salary" name="salary" type="number" min="0" step="1000"
+                            value="<?= htmlspecialchars($salaryInput) ?>"
+                            placeholder="e.g. 65000"
+                            class="input" />
+                    </div>
+
+                    <!-- Work Mode -->
+                    <div>
+                        <label for="mode" style="display: block; font-size: 0.75rem; font-weight: 600; color: #6b7280; margin-bottom: 0.5rem; text-transform: uppercase;">Work Mode</label>
+                        <select id="mode" name="mode" class="input">
+                            <option value="remote" <?= $workMode === 'remote'  ? 'selected' : '' ?>>Remote</option>
+                            <option value="hybrid" <?= $workMode === 'hybrid'  ? 'selected' : '' ?>>Hybrid</option>
+                            <option value="onsite" <?= $workMode === 'onsite'  ? 'selected' : '' ?>>On-site</option>
+                        </select>
+                    </div>
+
+                    <!-- Experience Level -->
+                    <div>
+                        <label for="experience" style="display: block; font-size: 0.75rem; font-weight: 600; color: #6b7280; margin-bottom: 0.5rem; text-transform: uppercase;">Experience</label>
+                        <select id="experience" name="experience" class="input">
+                            <option value="junior" <?= $experience === 'junior' ? 'selected' : '' ?>>Junior</option>
+                            <option value="mid" <?= $experience === 'mid' ? 'selected' : '' ?>>Mid-level</option>
+                            <option value="senior" <?= $experience === 'senior' ? 'selected' : '' ?>>Senior</option>
+                        </select>
+                    </div>
+
+                    <!-- Portfolio -->
+                    <div>
+                        <label for="portfolio" style="display: block; font-size: 0.75rem; font-weight: 600; color: #6b7280; margin-bottom: 0.5rem; text-transform: uppercase;">Portfolio</label>
+                        <select id="portfolio" name="portfolio" class="input">
+                            <option value="no" <?= !$hasPortfolio ? 'selected' : '' ?>>No portfolio</option>
+                            <option value="yes" <?= $hasPortfolio ? 'selected' : '' ?>>Has portfolio</option>
+                        </select>
+                    </div>
                 </div>
-                <div>
-                    <label style="display: block; font-size: 0.75rem; color: var(--muted-foreground); font-weight: 600; margin-bottom: 0.5rem; text-transform: uppercase;">Work Mode</label>
-                    <select id="mode" name="mode" class="input">
-                        <option value="remote" <?= $workMode === 'remote' ? 'selected' : '' ?>>Remote</option>
-                        <option value="hybrid" <?= $workMode === 'hybrid' ? 'selected' : '' ?>>Hybrid</option>
-                        <option value="onsite" <?= $workMode === 'onsite' ? 'selected' : '' ?>>On-site</option>
-                    </select>
+
+                <!-- Skills Checklist -->
+                <div style="margin-bottom: 1.5rem;">
+                    <label style="display: block; font-size: 0.75rem; font-weight: 600; color: #6b7280; margin-bottom: 0.75rem; text-transform: uppercase;">Skills Match (check all that apply)</label>
+                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; padding: 1rem; border: 1px solid #e5e7eb; border-radius: 0.5rem; background: #f9fafb;">
+                        <?php foreach ($requiredSkills as $skill): ?>
+                            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                <input type="checkbox" name="skills[]" value="<?= $skill ?>"
+                                    <?= in_array($skill, $userSkills) ? 'checked' : '' ?>
+                                    style="cursor: pointer;" />
+                                <span style="font-size: 0.875rem; color: #374151;"><?= $skill ?></span>
+                            </label>
+                        <?php endforeach; ?>
+                    </div>
                 </div>
-                <div>
-                    <label style="display: block; font-size: 0.75rem; color: var(--muted-foreground); font-weight: 600; margin-bottom: 0.5rem; text-transform: uppercase;">Experience</label>
-                    <select id="experience" name="experience" class="input">
-                        <option value="junior" <?= $experience === 'junior' ? 'selected' : '' ?>>Junior</option>
-                        <option value="mid" <?= $experience === 'mid' ? 'selected' : '' ?>>Mid-level</option>
-                        <option value="senior" <?= $experience === 'senior' ? 'selected' : '' ?>>Senior</option>
-                    </select>
-                </div>
-                <div style="display: flex; gap: 0.5rem; align-items: flex-end;">
-                    <button type="submit" class="btn btn-primary" style="flex: 1;">Analyze</button>
-                    <a href="/ternary" class="btn btn-secondary" style="padding: 0.625rem 1rem;">Reset</a>
+
+                <!-- Action Buttons -->
+                <div style="display: flex; gap: 1rem;">
+                    <button type="submit" class="btn btn-primary" style="flex: 1;">
+                        <i class="fa fa-check" aria-hidden="true"></i> Analyze Profile
+                    </button>
+                    <a href="/ternary" class="btn btn-secondary">
+                        <i class="fa fa-redo" aria-hidden="true"></i> Reset
+                    </a>
                 </div>
             </form>
-
-            <!-- Results Section -->
-            <?php if ($salary !== null): ?>
-                <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 2rem; align-items: start; margin-bottom: 2rem;">
-                    <!-- Score Gauge -->
-                    <div style="text-align: center; padding: 2rem; background: linear-gradient(135deg, var(--muted) 0%, transparent 100%); border-radius: var(--radius); border: 1px solid var(--border);">
-                        <div style="position: relative; width: 150px; height: 150px; margin: 0 auto 1.5rem;">
-                            <svg viewBox="0 0 200 200" style="width: 100%; height: 100%;">
-                                <circle cx="100" cy="100" r="90" fill="none" stroke="var(--border)" stroke-width="8" />
-                                <circle cx="100" cy="100" r="90" fill="none" stroke="var(--gold)" stroke-width="8" stroke-dasharray="<?= ($fitScore / 100) * 565 ?> 565" stroke-linecap="round" style="transform: rotate(-90deg); transform-origin: 100px 100px;" />
-                            </svg>
-                            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
-                                <div style="font-size: 2.5rem; font-weight: 700; color: var(--foreground);"><?= $fitScore ?></div>
-                                <div style="font-size: 0.75rem; color: var(--muted-foreground); font-weight: 600;">OUT OF 100</div>
-                            </div>
-                        </div>
-                        <p style="margin: 0; font-size: 1rem; font-weight: 600; color: var(--foreground);"><?= $suitability ?></p>
-                    </div>
-
-                    <!-- Breakdown & Advice -->
-                    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
-                        <!-- Advice Card -->
-                        <div style="padding: 1.5rem; background: var(--muted); border-radius: var(--radius); border: 1px solid var(--border);">
-                            <h3 style="margin: 0 0 0.75rem; font-size: 0.875rem; color: var(--muted-foreground); font-weight: 600; text-transform: uppercase;">Recommendation</h3>
-                            <p style="margin: 0; font-size: 1rem; color: var(--foreground); line-height: 1.6;"><?= $advice ?></p>
-                        </div>
-
-                        <!-- Score Breakdown with inline ternary logic -->
-                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
-
-                            <!-- Mode card -->
-                            <div style="padding: 1rem; border: 1px solid var(--border); border-radius: var(--radius);">
-                                <p style="margin: 0 0 0.5rem; font-size: 0.75rem; color: var(--muted-foreground); font-weight: 600; text-transform: uppercase;">Mode</p>
-                                <p style="margin: 0; font-size: 0.95rem; font-weight: 600; color: var(--foreground);"><?= $modeLabel ?></p>
-                                <div style="margin-top: 0.5rem; font-size: 0.8rem; color: var(--gold); font-weight: 500;">+<?= $modeScore ?> pts</div>
-                                <div style="margin-top: 0.75rem; padding: 0.5rem 0.625rem; background: var(--foreground); border-radius: calc(var(--radius) - 2px); font-family: 'Courier New', monospace; font-size: 0.7rem; line-height: 1.6; color: #888;">
-                                    <span>$modeScore =</span><br>
-                                    &nbsp;&nbsp;<span style="color: #c792ea;">$workMode === 'remote'</span><br>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;? <span style="color: #7dd3a8; <?= $workMode === 'remote' ? 'font-weight: 700;' : 'opacity: 0.5;' ?>">24</span><br>
-                                    &nbsp;&nbsp;: <span style="color: #c792ea;">$workMode === 'hybrid'</span><br>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;? <span style="color: #7dd3a8; <?= $workMode === 'hybrid' ? 'font-weight: 700;' : 'opacity: 0.5;' ?>">18</span> : <span style="color: #7dd3a8; <?= $workMode === 'onsite' ? 'font-weight: 700;' : 'opacity: 0.5;' ?>">12</span>;
-                                </div>
-                            </div>
-
-                            <!-- Experience card -->
-                            <div style="padding: 1rem; border: 1px solid var(--border); border-radius: var(--radius);">
-                                <p style="margin: 0 0 0.5rem; font-size: 0.75rem; color: var(--muted-foreground); font-weight: 600; text-transform: uppercase;">Experience</p>
-                                <p style="margin: 0; font-size: 0.95rem; font-weight: 600; color: var(--foreground);"><?= $experienceLabel ?></p>
-                                <div style="margin-top: 0.5rem; font-size: 0.8rem; color: var(--gold); font-weight: 500;">+<?= $experienceScore ?> pts</div>
-                                <div style="margin-top: 0.75rem; padding: 0.5rem 0.625rem; background: var(--foreground); border-radius: calc(var(--radius) - 2px); font-family: 'Courier New', monospace; font-size: 0.7rem; line-height: 1.6; color: #888;">
-                                    <span>$experienceScore =</span><br>
-                                    &nbsp;&nbsp;<span style="color: #c792ea;">$experience === 'senior'</span><br>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;? <span style="color: #7dd3a8; <?= $experience === 'senior' ? 'font-weight: 700;' : 'opacity: 0.5;' ?>">24</span><br>
-                                    &nbsp;&nbsp;: <span style="color: #c792ea;">$experience === 'mid'</span><br>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;? <span style="color: #7dd3a8; <?= $experience === 'mid' ? 'font-weight: 700;' : 'opacity: 0.5;' ?>">18</span> : <span style="color: #7dd3a8; <?= $experience === 'junior' ? 'font-weight: 700;' : 'opacity: 0.5;' ?>">12</span>;
-                                </div>
-                            </div>
-
-                            <!-- Salary card -->
-                            <div style="padding: 1rem; border: 1px solid var(--border); border-radius: var(--radius);">
-                                <p style="margin: 0 0 0.5rem; font-size: 0.75rem; color: var(--muted-foreground); font-weight: 600; text-transform: uppercase;">Salary</p>
-                                <p style="margin: 0; font-size: 0.95rem; font-weight: 600; color: var(--foreground);">$<?= number_format($salary, 0) ?></p>
-                                <div style="margin-top: 0.5rem; font-size: 0.8rem; color: var(--gold); font-weight: 500;">+<?= $baseScore ?> pts</div>
-                                <div style="margin-top: 0.75rem; padding: 0.5rem 0.625rem; background: var(--foreground); border-radius: calc(var(--radius) - 2px); font-family: 'Courier New', monospace; font-size: 0.7rem; line-height: 1.6; color: #888;">
-                                    <span>$baseScore =</span><br>
-                                    &nbsp;&nbsp;<span style="color: #c792ea;">$salary >= 90000</span><br>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;? <span style="color: #7dd3a8; <?= $salary >= 90000 ? 'font-weight: 700;' : 'opacity: 0.5;' ?>">38</span><br>
-                                    &nbsp;&nbsp;: <span style="color: #c792ea;">$salary >= 55000</span><br>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;? <span style="color: #7dd3a8; <?= ($salary >= 55000 && $salary < 90000) ? 'font-weight: 700;' : 'opacity: 0.5;' ?>">26</span> : <span style="color: #7dd3a8; <?= $salary < 55000 ? 'font-weight: 700;' : 'opacity: 0.5;' ?>">16</span>;
-                                </div>
-                            </div>
-
-                            <!-- Portfolio card -->
-                            <div style="padding: 1rem; border: 1px solid var(--border); border-radius: var(--radius);">
-                                <p style="margin: 0 0 0.5rem; font-size: 0.75rem; color: var(--muted-foreground); font-weight: 600; text-transform: uppercase;">Portfolio</p>
-                                <p style="margin: 0; font-size: 0.95rem; font-weight: 600; color: var(--foreground);"><?= $hasPortfolio ? 'Ready' : 'Missing' ?></p>
-                                <div style="margin-top: 0.5rem; font-size: 0.8rem; color: var(--gold); font-weight: 500;">+<?= $portfolioScore ?> pts</div>
-                                <div style="margin-top: 0.75rem; padding: 0.5rem 0.625rem; background: var(--foreground); border-radius: calc(var(--radius) - 2px); font-family: 'Courier New', monospace; font-size: 0.7rem; line-height: 1.6; color: #888;">
-                                    <span>$portfolioScore =</span><br>
-                                    &nbsp;&nbsp;<span style="color: #c792ea;">$hasPortfolio</span><br>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;? <span style="color: #7dd3a8; <?= $hasPortfolio ? 'font-weight: 700;' : 'opacity: 0.5;' ?>">14</span> : <span style="color: #7dd3a8; <?= !$hasPortfolio ? 'font-weight: 700;' : 'opacity: 0.5;' ?>">4</span>;
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            <?php else: ?>
-                <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 4rem 2rem; text-align: center; background: var(--muted); border-radius: var(--radius); border: 2px dashed var(--border);">
-                    <i class="fa fa-search" style="font-size: 2.5rem; color: var(--muted-foreground); margin-bottom: 1rem;"></i>
-                    <h3 style="margin: 0 0 0.5rem; font-size: 1.125rem; font-weight: 600; color: var(--foreground);">No results yet</h3>
-                    <p style="margin: 0; color: var(--muted-foreground);">Fill in the form above to see your job seeker suitability score and personalized recommendations</p>
-                </div>
-            <?php endif; ?>
         </div>
+
+        <!-- Results Section -->
+        <?= $salary !== null && $allSkillsSelected > 0 ?
+            '<div style="display: grid; grid-template-columns: 1fr 1.5fr; gap: 2rem;">
+                <!-- Score Gauge Card -->
+                <div style="background: #fff; border: 1px solid #d6dce8; border-radius: 0.625rem; padding: 2rem; text-align: center;">
+                    <div style="position: relative; width: 160px; height: 160px; margin: 0 auto 1.5rem;">
+                        <svg viewBox="0 0 200 200" style="width: 100%; height: 100%;">
+                            <circle cx="100" cy="100" r="90" fill="none" stroke="#e5e7eb" stroke-width="8" />
+                            <circle
+                                cx="100" cy="100" r="90"
+                                fill="none"
+                                stroke="' . ($primaryPercent >= 100 ? '#22c55e' : ($primaryPercent >= 50 ? '#f59e0b' : '#ef4444')) . '"
+                                stroke-width="8"
+                                stroke-dasharray="' . round(($primaryPercent / 100) * 565, 2) . ' 565"
+                                stroke-linecap="round"
+                                style="transform: rotate(-90deg); transform-origin: 100px 100px;" />
+                        </svg>
+                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
+                            <div style="font-size: 2.25rem; font-weight: 700; color: #111827;">' . $primaryPercent . '%</div>
+                            <div style="font-size: 0.75rem; font-weight: 600; color: #6b7280; text-transform: uppercase;">' . ($primaryCategory ? $primaryCategory : 'Skills') . '</div>
+                        </div>
+                    </div>
+                    <p style="font-weight: 700; font-size: 1.125rem; margin: 1rem 0; color: ' . ($primaryPercent >= 100 ? '#22c55e' : ($primaryPercent >= 50 ? '#f59e0b' : '#ef4444')) . ';">' . ($primaryPercent >= 100 ? 'Highly Suitable' : ($primaryPercent >= 50 ? 'Strong Match' : 'Developing')) . '</p>
+                </div>
+
+                <!-- Advice Card -->
+                <div style="background: #fff; border: 1px solid #d6dce8; border-radius: 0.625rem; padding: 2rem;">
+                    <h3 style="font-size: 0.75rem; font-weight: 600; color: #6b7280; margin-bottom: 1rem; text-transform: uppercase;">
+                        <i class="fa fa-lightbulb" aria-hidden="true"></i> Recommendation
+                    </h3>
+                    <p style="font-size: 1rem; color: #374151; line-height: 1.6;">' . $advice . '</p>
+                </div>
+            </div>'
+            :
+            '<div style="text-align: center; padding: 3rem; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 0.625rem;">
+                <i class="fa fa-info-circle" style="font-size: 2rem; color: #9ca3af; margin-bottom: 1rem;"></i>
+                <p style="color: #6b7280; font-size: 1rem;">Select skills above to see your category suitability</p>
+            </div>'
+        ?>
+    </div>
 </main>
 
 <?= loadPartial("footer"); ?>

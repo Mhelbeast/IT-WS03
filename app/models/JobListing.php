@@ -1,21 +1,36 @@
 <?php
 
-class JobListing {
+use Framework\Database;
+
+class JobListing
+{
     private array $data;
 
     private static array $fields = [
-        'user_id', 'title', 'description', 'salary', 'tags',
-        'company', 'address', 'city', 'state', 'phone',
-        'email', 'requirements', 'benefits'
+        'user_id',
+        'title',
+        'description',
+        'salary',
+        'tags',
+        'company',
+        'address',
+        'city',
+        'state',
+        'phone',
+        'email',
+        'requirements',
+        'benefits'
     ];
 
-    public function __construct(array $data) {
+    public function __construct(array $data)
+    {
         // Only keep recognized fields to prevent mass assignment vulnerabilities
         $this->data = array_intersect_key($data, array_flip(self::$fields));
     }
 
-    public function save(): bool {
-        $config = require basePath('config/db.php');
+    public function save(): bool
+    {
+        $config = require basePath('app/config/db.php');
         $db = new Database($config);
 
         // Only insert the fields that are present in the provided data

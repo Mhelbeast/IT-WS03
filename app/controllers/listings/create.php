@@ -1,5 +1,5 @@
 <?php
-require basePath('models/JobListing.php');
+require basePath('app/models/JobListing.php');
 
 $error = null;
 $old = [];
@@ -41,5 +41,3 @@ loadView("listings/create", [
 	'error' => $error,
 	'old' => $old,
 ]);
-
-?>

@@ -1,6 +1,8 @@
 <?php
 
-$config = require basePath('config/db.php');
+use Framework\Database;
+
+$config = require basePath('app/config/db.php');
 $db = new Database($config);
 
 $id = $_GET['id'] ?? null;
@@ -22,5 +24,3 @@ if (!$listing) {
 loadView('listings/show', [
     'listing' => $listing
 ]);
-
-?>

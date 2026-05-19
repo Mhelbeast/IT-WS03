@@ -1,6 +1,8 @@
 <?php
 
-$config = require basePath('config/db.php');
+use Framework\Database;
+
+$config = require basePath('app/config/db.php');
 $db = new Database($config);
 
 $keywords = trim($_GET['keywords'] ?? '');
@@ -29,5 +31,3 @@ loadView("listings/index", [
 	'keywords' => $keywords,
 	'location' => $location,
 ]);
-
-?>

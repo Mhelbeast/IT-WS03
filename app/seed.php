@@ -1,6 +1,6 @@
 <?php
 
-require basePath('models/JobListing.php');
+require basePath('app/models/JobListing.php');
 
 $jobListings = [
   [

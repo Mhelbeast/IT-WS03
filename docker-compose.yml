@@ -13,7 +13,7 @@ services:
       - "3000:80"
     
     volumes:
-      - ./app:/var/www/html/
+      - ./:/var/www/html/
 
   db:
     image: mysql:8

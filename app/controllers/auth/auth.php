@@ -1,7 +1,10 @@
 <?php
 
-function loginUser($email, $password) {
-    $config = require basePath('config/db.php');
+use Framework\Database;
+
+function loginUser($email, $password)
+{
+    $config = require basePath('app/config/db.php');
     $db = new Database($config);
 
     // Fetch user by email
@@ -36,8 +39,9 @@ function loginUser($email, $password) {
     return false;
 }
 
-function registerUser($givenName, $lastName, $email, $password) {
-    $config = require basePath('config/db.php');
+function registerUser($givenName, $lastName, $email, $password)
+{
+    $config = require basePath('app/config/db.php');
     $db = new Database($config);
 
     $sth = $db->conn->prepare("SELECT id FROM users WHERE email = :email LIMIT 1");
@@ -62,5 +66,3 @@ function registerUser($givenName, $lastName, $email, $password) {
 
     return (int) $db->conn->lastInsertId();
 }
-
-?>

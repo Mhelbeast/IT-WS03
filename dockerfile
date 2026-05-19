@@ -9,4 +9,4 @@ RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.
 
 RUN docker-php-ext-install pdo pdo_mysql
 
-COPY ./app /var/www/html
+COPY . /var/www/html
