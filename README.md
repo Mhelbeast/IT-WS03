@@ -8,7 +8,7 @@ A collection of projects built with vanilla PHP, CSS, and Docker.
   A job listing platform with features for posting jobs, browsing listings, account registration, and profile suitability analysis.
 
 - **MyBlog**  
-  A personal blog showcasing design work, reflections, and learning journey.
+  A personal blog showcasing reflections, and learning journey.
 
 ## Setup
 
