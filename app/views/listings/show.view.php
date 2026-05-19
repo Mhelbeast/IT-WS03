@@ -1,3 +1,7 @@
+<?php
+
+/** @var stdClass $listing */
+?>
 <?= loadPartial("head"); ?>
 <?= loadPartial("navbar"); ?>
 

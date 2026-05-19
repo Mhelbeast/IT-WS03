@@ -1,4 +1,8 @@
 <?php
+
+/** @var stdClass $job */
+?>
+<?php
 $location = htmlspecialchars($job->city ?: $job->state ?: $job->address ?: 'Remote');
 $salary = '$' . htmlspecialchars(number_format((float)$job->salary, 0));
 ?>
