@@ -43,6 +43,7 @@ $featured = $posts[3];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="css/blog.css" rel="stylesheet">
 
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -64,9 +65,18 @@ $featured = $posts[3];
 <body class="bg-zinc-100 text-zinc-900 font-sans">
 
     <header class="border-b border-zinc-200 bg-zinc-50">
-        <div class="container mx-auto px-8 py-10 text-center">
-            <h1 class="text-7xl font-bold tracking-tight"><?= ($title) ?></h1>
-            <p class="text-md text-zinc-500"><?= ($motto) ?></p>
+        <div class="container mx-auto px-8 py-10">
+            <div class="flex items-center gap-4 mb-6">
+                <a href="/" class="inline-flex items-center justify-center w-10 h-10 rounded-lg text-zinc-500 hover:text-zinc-900 hover:bg-zinc-200 transition-colors" title="Back to Job Seeker">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                    </svg>
+                </a>
+            </div>
+            <div class="text-center">
+                <h1 class="text-7xl font-bold tracking-tight"><?= ($title) ?></h1>
+                <p class="text-md text-zinc-500"><?= ($motto) ?></p>
+            </div>
         </div>
     </header>
 

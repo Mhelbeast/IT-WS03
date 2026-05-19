@@ -1,0 +1,169 @@
+/* ============================================================
+   BLOG PALETTE ALIGNMENT — Job Seeker Color System
+   ============================================================ */
+
+/* Import the palette from custom.css */
+@import url('./custom.css');
+
+/* Override Tailwind's zinc colors to use job seeker palette */
+
+/* Zinc-50 → Card (white background) */
+.bg-zinc-50,
+.bg-zinc-50 {
+  background-color: var(--card) !important;
+}
+
+/* Zinc-100 → Muted (light background) */
+.bg-zinc-100 {
+  background-color: var(--muted) !important;
+}
+
+/* Zinc-200 → Muted/Border (for image placeholders) */
+.bg-zinc-200 {
+  background-color: var(--muted) !important;
+}
+
+/* Zinc-500 → Muted Foreground (secondary text) */
+.text-zinc-500 {
+  color: var(--muted-foreground) !important;
+}
+
+/* Zinc-600 → Muted Foreground (secondary text) */
+.text-zinc-600 {
+  color: var(--muted-foreground) !important;
+}
+
+/* Zinc-700 → Foreground (body text) */
+.text-zinc-700,
+.text-zinc-800 {
+  color: var(--foreground) !important;
+}
+
+/* Zinc-900 → Foreground (dark text) */
+.text-zinc-900 {
+  color: var(--foreground) !important;
+}
+
+/* Zinc borders → Border color */
+.border-zinc-200,
+.border-zinc-300 {
+  border-color: var(--border) !important;
+}
+
+/* Blog-specific overrides */
+
+/* Header styling */
+header.border-b {
+  background-color: var(--card) !important;
+  border-bottom-color: var(--border) !important;
+}
+
+header h1 {
+  color: var(--foreground) !important;
+}
+
+header p {
+  color: var(--muted-foreground) !important;
+}
+
+/* Profile and About cards */
+.rounded-2xl.bg-zinc-50,
+.rounded-2xl.shadow-sm {
+  background-color: var(--card) !important;
+  border: 1px solid var(--border) !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+
+/* Card text colors */
+.rounded-2xl.bg-zinc-50 h2 {
+  color: var(--foreground) !important;
+}
+
+.rounded-2xl.bg-zinc-50 p {
+  color: var(--muted-foreground) !important;
+}
+
+/* Role/Works/Games badges */
+.border-dashed.border-zinc-300 {
+  border-color: var(--border) !important;
+  background-color: var(--muted) !important;
+}
+
+.border-dashed.border-zinc-300 {
+  color: var(--foreground) !important;
+}
+
+/* Featured post section */
+section.group.rounded-2xl {
+  background-color: var(--card) !important;
+  border-color: var(--border) !important;
+}
+
+section.group.rounded-2xl h3,
+section.group.rounded-2xl h4 {
+  color: var(--foreground) !important;
+}
+
+section.group.rounded-2xl:hover h3,
+section.group.rounded-2xl:hover h4 {
+  color: var(--primary) !important;
+}
+
+section.group.rounded-2xl .text-sm {
+  color: var(--muted-foreground) !important;
+}
+
+/* Post cards */
+article.group.rounded-2xl {
+  background-color: var(--card) !important;
+  border-color: var(--border) !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+
+article.group.rounded-2xl:hover {
+  box-shadow: var(--shadow-md) !important;
+}
+
+/* Section titles (LATEST, POSTS, etc.) */
+section > p.text-xs.font-medium {
+  color: var(--muted-foreground) !important;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* Footer styling */
+footer {
+  border-top-color: var(--border) !important;
+  background-color: var(--background) !important;
+  color: var(--muted-foreground) !important;
+}
+
+/* Body background */
+body.bg-zinc-100 {
+  background-color: var(--background) !important;
+  color: var(--foreground) !important;
+}
+
+/* Typography adjustments for consistency */
+body {
+  font-family: var(--font-sans) !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading) !important;
+  color: var(--foreground) !important;
+}
+
+/* Transition-colors hover states */
+.transition-colors {
+  color: inherit;
+}
+
+/* Links in blog */
+a {
+  color: var(--primary) !important;
+}
+
+a:hover {
+  color: var(--primary-hover) !important;
+}
