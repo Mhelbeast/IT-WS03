@@ -132,21 +132,21 @@ if ($salary !== null && $allSkillsSelected > 0) {
 
 <main class="page-section">
     <div class="site-container">
-        <div class="section-header" style="justify-content: center; border: 1px solid #d6dce8; padding: 2rem; border-radius: 0.625rem; margin-bottom: 2rem; text-align: center;">
+        <div class="section-header ternary-section-header">
             <div>
-                <h1 class="section-title" style="font-size: 2.5rem; margin-bottom: 0.5rem;">Job Seeker Suitability</h1>
+                <h1 class="section-title ternary-section-title">Job Seeker Suitability</h1>
                 <p class="section-subtitle">Evaluate how competitive your profile is for a given role</p>
             </div>
         </div>
 
         <!-- Form Card -->
-        <div style="background: #fff; border: 1px solid #d6dce8; border-radius: 0.625rem; padding: 2rem; margin-bottom: 2rem;">
+        <div class="ternary-form-card">
             <form method="GET" action="/ternary">
                 <!-- Input Grid -->
-                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-bottom: 1.5rem;">
+                <div class="ternary-input-grid">
                     <!-- Asking Salary -->
                     <div>
-                        <label for="salary" style="display: block; font-size: 0.75rem; font-weight: 600; color: #6b7280; margin-bottom: 0.5rem; text-transform: uppercase;">Asking Salary (USD)</label>
+                        <label for="salary" class="ternary-label">Asking Salary (USD)</label>
                         <input id="salary" name="salary" type="number" min="0" step="1000"
                             value="<?= htmlspecialchars($salaryInput) ?>"
                             placeholder="e.g. 65000"
@@ -155,7 +155,7 @@ if ($salary !== null && $allSkillsSelected > 0) {
 
                     <!-- Work Mode -->
                     <div>
-                        <label for="mode" style="display: block; font-size: 0.75rem; font-weight: 600; color: #6b7280; margin-bottom: 0.5rem; text-transform: uppercase;">Work Mode</label>
+                        <label for="mode" class="ternary-label">Work Mode</label>
                         <select id="mode" name="mode" class="input">
                             <option value="remote" <?= $workMode === 'remote'  ? 'selected' : '' ?>>Remote</option>
                             <option value="hybrid" <?= $workMode === 'hybrid'  ? 'selected' : '' ?>>Hybrid</option>
@@ -165,7 +165,7 @@ if ($salary !== null && $allSkillsSelected > 0) {
 
                     <!-- Experience Level -->
                     <div>
-                        <label for="experience" style="display: block; font-size: 0.75rem; font-weight: 600; color: #6b7280; margin-bottom: 0.5rem; text-transform: uppercase;">Experience</label>
+                        <label for="experience" class="ternary-label">Experience</label>
                         <select id="experience" name="experience" class="input">
                             <option value="junior" <?= $experience === 'junior' ? 'selected' : '' ?>>Junior</option>
                             <option value="mid" <?= $experience === 'mid' ? 'selected' : '' ?>>Mid-level</option>
@@ -175,7 +175,7 @@ if ($salary !== null && $allSkillsSelected > 0) {
 
                     <!-- Portfolio -->
                     <div>
-                        <label for="portfolio" style="display: block; font-size: 0.75rem; font-weight: 600; color: #6b7280; margin-bottom: 0.5rem; text-transform: uppercase;">Portfolio</label>
+                        <label for="portfolio" class="ternary-label">Portfolio</label>
                         <select id="portfolio" name="portfolio" class="input">
                             <option value="no" <?= !$hasPortfolio ? 'selected' : '' ?>>No portfolio</option>
                             <option value="yes" <?= $hasPortfolio ? 'selected' : '' ?>>Has portfolio</option>
@@ -184,23 +184,23 @@ if ($salary !== null && $allSkillsSelected > 0) {
                 </div>
 
                 <!-- Skills Checklist -->
-                <div style="margin-bottom: 1.5rem;">
-                    <label style="display: block; font-size: 0.75rem; font-weight: 600; color: #6b7280; margin-bottom: 0.75rem; text-transform: uppercase;">Skills Match (check all that apply)</label>
-                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; padding: 1rem; border: 1px solid #e5e7eb; border-radius: 0.5rem; background: #f9fafb;">
+                <div class="ternary-skills-container">
+                    <label class="ternary-label">Skills Match (check all that apply)</label>
+                    <div class="ternary-skills-grid">
                         <?php foreach ($requiredSkills as $skill): ?>
-                            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                            <label class="ternary-skill-label">
                                 <input type="checkbox" name="skills[]" value="<?= $skill ?>"
                                     <?= in_array($skill, $userSkills) ? 'checked' : '' ?>
-                                    style="cursor: pointer;" />
-                                <span style="font-size: 0.875rem; color: #374151;"><?= $skill ?></span>
+                                    class="ternary-skill-input" />
+                                <span class="ternary-skill-text"><?= $skill ?></span>
                             </label>
                         <?php endforeach; ?>
                     </div>
                 </div>
 
                 <!-- Action Buttons -->
-                <div style="display: flex; gap: 1rem;">
-                    <button type="submit" class="btn btn-primary" style="flex: 1;">
+                <div class="ternary-button-group">
+                    <button type="submit" class="btn btn-primary">
                         <i class="fa fa-check" aria-hidden="true"></i> Analyze Profile
                     </button>
                     <a href="/ternary" class="btn btn-secondary">
@@ -212,11 +212,11 @@ if ($salary !== null && $allSkillsSelected > 0) {
 
         <!-- Results Section -->
         <?= $salary !== null && $allSkillsSelected > 0 ?
-            '<div style="display: grid; grid-template-columns: 1fr 1.5fr; gap: 2rem;">
+            '<div class="ternary-results-grid">
                 <!-- Score Gauge Card -->
-                <div style="background: #fff; border: 1px solid #d6dce8; border-radius: 0.625rem; padding: 2rem; text-align: center;">
-                    <div style="position: relative; width: 160px; height: 160px; margin: 0 auto 1.5rem;">
-                        <svg viewBox="0 0 200 200" style="width: 100%; height: 100%;">
+                <div class="ternary-gauge-card">
+                    <div class="ternary-gauge-container">
+                        <svg viewBox="0 0 200 200" class="ternary-gauge-svg">
                             <circle cx="100" cy="100" r="90" fill="none" stroke="#e5e7eb" stroke-width="8" />
                             <circle
                                 cx="100" cy="100" r="90"
@@ -227,26 +227,26 @@ if ($salary !== null && $allSkillsSelected > 0) {
                                 stroke-linecap="round"
                                 style="transform: rotate(-90deg); transform-origin: 100px 100px;" />
                         </svg>
-                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
-                            <div style="font-size: 2.25rem; font-weight: 700; color: #111827;">' . $primaryPercent . '%</div>
-                            <div style="font-size: 0.75rem; font-weight: 600; color: #6b7280; text-transform: uppercase;">' . ($primaryCategory ? $primaryCategory : 'Skills') . '</div>
+                        <div class="ternary-gauge-text">
+                            <div class="ternary-gauge-percent">' . $primaryPercent . '%</div>
+                            <div class="ternary-gauge-label">' . ($primaryCategory ? $primaryCategory : 'Skills') . '</div>
                         </div>
                     </div>
-                    <p style="font-weight: 700; font-size: 1.125rem; margin: 1rem 0; color: ' . ($primaryPercent >= 100 ? '#22c55e' : ($primaryPercent >= 50 ? '#f59e0b' : '#ef4444')) . ';">' . ($primaryPercent >= 100 ? 'Highly Suitable' : ($primaryPercent >= 50 ? 'Strong Match' : 'Developing')) . '</p>
+                    <p class="ternary-gauge-status" style="color: ' . ($primaryPercent >= 100 ? '#22c55e' : ($primaryPercent >= 50 ? '#f59e0b' : '#ef4444')) . ';">' . ($primaryPercent >= 100 ? 'Highly Suitable' : ($primaryPercent >= 50 ? 'Strong Match' : 'Developing')) . '</p>
                 </div>
 
                 <!-- Advice Card -->
-                <div style="background: #fff; border: 1px solid #d6dce8; border-radius: 0.625rem; padding: 2rem;">
-                    <h3 style="font-size: 0.75rem; font-weight: 600; color: #6b7280; margin-bottom: 1rem; text-transform: uppercase;">
+                <div class="ternary-advice-card">
+                    <h3 class="ternary-advice-title">
                         <i class="fa fa-lightbulb" aria-hidden="true"></i> Recommendation
                     </h3>
-                    <p style="font-size: 1rem; color: #374151; line-height: 1.6;">' . $advice . '</p>
+                    <p class="ternary-advice-text">' . $advice . '</p>
                 </div>
             </div>'
             :
-            '<div style="text-align: center; padding: 3rem; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 0.625rem;">
-                <i class="fa fa-info-circle" style="font-size: 2rem; color: #9ca3af; margin-bottom: 1rem;"></i>
-                <p style="color: #6b7280; font-size: 1rem;">Select skills above to see your category suitability</p>
+            '<div class="ternary-empty-state">
+                <i class="fa fa-info-circle ternary-empty-icon"></i>
+                <p class="ternary-empty-text">Select skills above to see your category suitability</p>
             </div>'
         ?>
     </div>
