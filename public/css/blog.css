@@ -5,20 +5,42 @@
 /* Import the palette from custom.css */
 @import url('./custom.css');
 
+/* Global Blog Styles */
+body {
+  background-color: var(--background) !important;
+  color: var(--foreground) !important;
+}
+
+/* Primary Color Classes */
+.primary {
+  color: var(--primary);
+}
+
+.bg-primary {
+  background-color: var(--primary) !important;
+}
+
+.text-primary {
+  color: var(--primary) !important;
+}
+
+.border-primary {
+  border-color: var(--primary) !important;
+}
+
 /* Override Tailwind's zinc colors to use job seeker palette */
 
 /* Zinc-50 → Card (white background) */
-.bg-zinc-50,
 .bg-zinc-50 {
   background-color: var(--card) !important;
 }
 
-/* Zinc-100 → Muted (light background) */
+/* Zinc-100 → Background (light background) */
 .bg-zinc-100 {
-  background-color: var(--muted) !important;
+  background-color: var(--background) !important;
 }
 
-/* Zinc-200 → Muted/Border (for image placeholders) */
+/* Zinc-200 → Border/Muted (for image placeholders) */
 .bg-zinc-200 {
   background-color: var(--muted) !important;
 }
@@ -34,12 +56,16 @@
 }
 
 /* Zinc-700 → Foreground (body text) */
-.text-zinc-700,
+.text-zinc-700 {
+  color: var(--foreground) !important;
+}
+
+/* Zinc-800 → Foreground (darker body text) */
 .text-zinc-800 {
   color: var(--foreground) !important;
 }
 
-/* Zinc-900 → Foreground (dark text) */
+/* Zinc-900 → Header/Dark (darkest text) */
 .text-zinc-900 {
   color: var(--foreground) !important;
 }
@@ -50,101 +76,127 @@
   border-color: var(--border) !important;
 }
 
-/* Blog-specific overrides */
+/* Navigation & Header */
+nav {
+  background-color: var(--card) !important;
+  border-bottom-color: var(--border) !important;
+}
 
-/* Header styling */
-header.border-b {
+nav a {
+  color: var(--foreground) !important;
+  transition: color 0.2s ease;
+}
+
+nav a:hover {
+  color: var(--primary) !important;
+}
+
+header {
   background-color: var(--card) !important;
   border-bottom-color: var(--border) !important;
 }
 
 header h1 {
   color: var(--foreground) !important;
+  font-weight: 900 !important;
+  letter-spacing: -0.03em;
 }
 
 header p {
   color: var(--muted-foreground) !important;
 }
 
-/* Profile and About cards */
-.rounded-2xl.bg-zinc-50,
-.rounded-2xl.shadow-sm {
+/* Profile and About cards - rounded-lg */
+.rounded-lg.bg-zinc-50 {
   background-color: var(--card) !important;
-  border: 1px solid var(--border) !important;
-  box-shadow: var(--shadow-sm) !important;
+  border-color: var(--border) !important;
 }
 
-/* Card text colors */
-.rounded-2xl.bg-zinc-50 h2 {
+.rounded-lg.bg-zinc-50 h2 {
   color: var(--foreground) !important;
 }
 
-.rounded-2xl.bg-zinc-50 p {
+.rounded-lg.bg-zinc-50 p {
   color: var(--muted-foreground) !important;
+}
+
+.rounded-lg.bg-zinc-50 a {
+  color: var(--primary) !important;
+}
+
+.rounded-lg.bg-zinc-50 a:hover {
+  color: var(--primary-hover) !important;
 }
 
 /* Role/Works/Games badges */
 .border-dashed.border-zinc-300 {
   border-color: var(--border) !important;
   background-color: var(--muted) !important;
-}
-
-.border-dashed.border-zinc-300 {
   color: var(--foreground) !important;
 }
 
-/* Featured post section */
-section.group.rounded-2xl {
+/* Section cards - rounded-lg */
+section.group.rounded-lg {
   background-color: var(--card) !important;
   border-color: var(--border) !important;
 }
 
-section.group.rounded-2xl h3,
-section.group.rounded-2xl h4 {
+section.group.rounded-lg h3,
+section.group.rounded-lg h4 {
   color: var(--foreground) !important;
 }
 
-section.group.rounded-2xl:hover h3,
-section.group.rounded-2xl:hover h4 {
+section.group.rounded-lg h3:hover,
+section.group.rounded-lg h4:hover {
   color: var(--primary) !important;
 }
 
-section.group.rounded-2xl .text-sm {
+section.group.rounded-lg p {
   color: var(--muted-foreground) !important;
 }
 
-/* Post cards */
-article.group.rounded-2xl {
+section.group.rounded-lg a {
+  color: var(--primary) !important;
+}
+
+section.group.rounded-lg a:hover {
+  color: var(--primary-hover) !important;
+}
+
+/* Article cards - rounded-lg */
+article.group.rounded-lg {
   background-color: var(--card) !important;
   border-color: var(--border) !important;
-  box-shadow: var(--shadow-sm) !important;
 }
 
-article.group.rounded-2xl:hover {
-  box-shadow: var(--shadow-md) !important;
-}
-
-/* Section titles (LATEST, POSTS, etc.) */
-section > p.text-xs.font-medium {
-  color: var(--muted-foreground) !important;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-}
-
-/* Footer styling */
-footer {
-  border-top-color: var(--border) !important;
-  background-color: var(--background) !important;
-  color: var(--muted-foreground) !important;
-}
-
-/* Body background */
-body.bg-zinc-100 {
-  background-color: var(--background) !important;
+article.group.rounded-lg h4 {
   color: var(--foreground) !important;
 }
 
-/* Typography adjustments for consistency */
+article.group.rounded-lg h4:hover {
+  color: var(--primary) !important;
+}
+
+article.group.rounded-lg p {
+  color: var(--muted-foreground) !important;
+}
+
+article.group.rounded-lg a {
+  color: var(--primary) !important;
+}
+
+article.group.rounded-lg a:hover {
+  color: var(--primary-hover) !important;
+}
+
+/* Footer */
+footer {
+  border-top-color: var(--border) !important;
+  background-color: var(--card) !important;
+  color: var(--muted-foreground) !important;
+}
+
+/* Typography */
 body {
   font-family: var(--font-sans) !important;
 }
@@ -154,16 +206,431 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--foreground) !important;
 }
 
-/* Transition-colors hover states */
-.transition-colors {
-  color: inherit;
-}
-
-/* Links in blog */
+/* Links */
 a {
   color: var(--primary) !important;
+  text-decoration: none;
+  transition: color 0.2s ease;
 }
 
 a:hover {
   color: var(--primary-hover) !important;
+}
+
+/* Indicator dots */
+.w-1\.5.h-1\.5.bg-primary {
+  background-color: var(--primary) !important;
+}
+
+.w-2.h-2.bg-primary {
+  background-color: var(--primary) !important;
+}
+
+/* ============================================================
+   CUSTOM CSS CLASSES FOR BLOG LAYOUT
+   ============================================================ */
+
+/* Navigation Bar */
+.blog-nav {
+  border-bottom: 1px solid var(--border);
+  background-color: var(--card);
+  padding: 1rem 0;
+}
+
+.blog-nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.blog-nav-back {
+  font-size: 1.5rem;
+  color: var(--foreground);
+  transition: color 0.2s ease;
+  text-decoration: none;
+}
+
+.blog-nav-back:hover {
+  color: var(--primary);
+}
+
+.blog-nav-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: var(--muted-foreground);
+  text-transform: uppercase;
+}
+
+/* Header */
+.blog-header {
+  border-bottom: 1px solid var(--border);
+  background-color: var(--card);
+  padding: 3rem 0;
+  text-align: center;
+}
+
+.blog-header-title {
+  font-size: 3.5rem;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  color: var(--foreground);
+  margin: 0;
+  line-height: 1.05;
+  text-shadow: 0 2px 8px rgba(13, 30, 53, 0.1);
+}
+
+@media (min-width: 768px) {
+  .blog-header-title {
+    font-size: 4.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .blog-header-title {
+    font-size: 5.5rem;
+  }
+}
+
+.blog-header-subtitle {
+  font-size: 1.125rem;
+  color: var(--muted-foreground);
+  margin-top: 0.5rem;
+}
+
+/* Main Container */
+.blog-main {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 3rem;
+  padding: 3rem 1.5rem;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+@media (min-width: 1024px) {
+  .blog-main {
+    max-width: 1280px;
+  }
+}
+
+/* Sidebar */
+.blog-sidebar {
+  grid-column: span 4;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  position: sticky;
+  top: 5rem;
+  align-self: start;
+}
+
+@media (max-width: 1023px) {
+  .blog-sidebar {
+    grid-column: span 12;
+    position: static;
+  }
+}
+
+/* Content */
+.blog-content {
+  grid-column: span 8;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+@media (max-width: 1023px) {
+  .blog-content {
+    grid-column: span 12;
+  }
+}
+
+/* Card Styles */
+.blog-card {
+  border-radius: 0.5rem;
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.blog-card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.blog-card-padding {
+  padding: 1.5rem;
+}
+
+.blog-card-divider {
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.blog-card-title {
+  font-size: 1.375rem;
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.blog-card-subtitle {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  margin-top: 0.25rem;
+}
+
+/* Badge/Info Row */
+.blog-info-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+.blog-info-label {
+  font-weight: 500;
+  color: var(--muted-foreground);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.blog-info-badge {
+  padding: 0.5rem 0.75rem;
+  border: 1px dashed var(--border);
+  border-radius: 0.25rem;
+  background-color: var(--muted);
+  color: var(--foreground);
+  text-align: right;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+/* Featured Post */
+.blog-featured {
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.blog-featured-image {
+  overflow: hidden;
+  background-color: var(--muted);
+  height: 24rem;
+}
+
+.blog-featured-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.blog-featured:hover .blog-featured-image img {
+  transform: scale(1.05);
+}
+
+.blog-featured-content {
+  padding: 2rem;
+}
+
+.blog-featured-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--muted-foreground);
+  text-transform: uppercase;
+}
+
+.blog-featured-label-dot {
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  background-color: var(--primary);
+  border-radius: 9999px;
+  margin-right: 0.5rem;
+}
+
+.blog-featured-title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: var(--foreground);
+  margin: 0.75rem 0;
+  transition: color 0.2s ease;
+}
+
+.blog-featured:hover .blog-featured-title {
+  color: var(--primary);
+}
+
+.blog-featured-date {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.blog-featured-excerpt {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--foreground);
+  margin-bottom: 1.5rem;
+}
+
+.blog-featured-link {
+  display: inline-block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--primary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.blog-featured-link:hover {
+  color: var(--primary-hover);
+}
+
+/* Posts Section */
+.blog-posts-header {
+  margin-bottom: 1.5rem;
+}
+
+.blog-posts-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--muted-foreground);
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.blog-posts-divider {
+  width: 3rem;
+  height: 0.25rem;
+  background-color: var(--primary);
+  border-radius: 9999px;
+  margin-top: 0.5rem;
+}
+
+/* Posts Grid */
+.blog-posts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .blog-posts-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Post Article */
+.blog-post-article {
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.blog-post-article:hover {
+  transform: translateY(-0.25rem);
+  box-shadow: var(--shadow-md);
+}
+
+.blog-post-image {
+  overflow: hidden;
+  background-color: var(--muted);
+  height: 16rem;
+}
+
+.blog-post-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.blog-post-article:hover .blog-post-image img {
+  transform: scale(1.05);
+}
+
+.blog-post-content {
+  padding: 1.25rem;
+}
+
+.blog-post-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--muted-foreground);
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.blog-post-label-dot {
+  display: inline-block;
+  width: 0.375rem;
+  height: 0.375rem;
+  background-color: var(--primary);
+  border-radius: 9999px;
+}
+
+.blog-post-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--foreground);
+  transition: color 0.2s ease;
+  margin-bottom: 0.5rem;
+}
+
+.blog-post-article:hover .blog-post-title {
+  color: var(--primary);
+}
+
+.blog-post-date {
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+  margin-bottom: 0.75rem;
+  font-weight: 500;
+}
+
+.blog-post-excerpt {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--foreground);
+  margin-bottom: 1rem;
+}
+
+.blog-post-link {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--primary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.blog-post-link:hover {
+  color: var(--primary-hover);
+}
+
+/* Footer */
+.blog-footer {
+  margin-top: 4rem;
+  border-top: 1px solid var(--border);
+  padding: 2rem 0;
+  background-color: var(--card);
+  text-align: center;
+}
+
+.blog-footer-text {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--muted-foreground);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
