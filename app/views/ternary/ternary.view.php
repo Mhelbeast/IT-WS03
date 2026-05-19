@@ -94,7 +94,7 @@ $suitability = $salary !== null
 $isHighSuitability = $fitScore >= 75;
 $isMidSuitability  = $fitScore >= 50 && $fitScore < 75;
 $isLowSuitability  = $fitScore < 50;
-$gaugeColor = $isHighSuitability ? '#22c55e' : ($isMidSuitability ? '#f59e0b' : '#ef4444');
+$gaugeColor = $isHighSuitability ? '#22c55e' : ($isMidSuitability ? '#f59e0b' : '#ef4444'); // From palette: --gauge-suitable, --gauge-match, --gauge-developing
 
 // --- Dynamic Advice based on Skill Category ---
 if ($salary !== null && $allSkillsSelected > 0) {

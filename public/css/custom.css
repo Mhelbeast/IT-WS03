@@ -1,41 +1,45 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Space+Grotesk:wght@500;600;700&display=swap');
 :root {
-  --background: #fdf8f2;
-  --foreground: #2b1a0e;
-  --muted: #f5ede0;
-  --muted-foreground: #7a6050;
-  --border: #e5d5c0;
-  --input: #d4c0a8;
-  --ring: #c05a1f;
-  --primary: #c05a1f;
-  --primary-hover: #a04a18;
+  --background: #f0f6fd;
+  --foreground: #0d1e35;
+  --muted: #e8f2fb;
+  --muted-foreground: #4a6a8a;
+  --border: #c3d9f0;
+  --input: #a8c8e8;
+  --ring: #1a6cc4;
+  --primary: #1a6cc4;
+  --primary-hover: #155aa8;
   --primary-foreground: #ffffff;
-  --secondary: #fdeee4;
-  --secondary-foreground: #2b1a0e;
-  --accent: #f5ede0;
-  --accent-foreground: #7a3a10;
+  --secondary: #dbeeff;
+  --secondary-foreground: #0d1e35;
+  --secondary-hover: #cdd9ed;
+  --accent: #e8f2fb;
+  --accent-foreground: #0d3a6e;
   --destructive: #c0392b;
   --destructive-foreground: #ffffff;
   --card: #ffffff;
-  --card-foreground: #2b1a0e;
-  --header: #2b1a0e;
-  --header-foreground: #f5ede0;
-  --footer: #2b1a0e;
-  --footer-foreground: #a08060;
+  --card-foreground: #0d1e35;
+  --header: #0d1e35;
+  --header-foreground: #e4eef8;
+  --footer: #0d1e35;
+  --footer-foreground: #7aaac8;
   --success: #eaf4ec;
   --success-foreground: #1a5c30;
   --error: #fdecea;
   --error-foreground: #8b1c1c;
-  --gold: #c05a1f;
-  --gold-light: #fdeee4;
-  --gold-hover: #a04a18;
+  --gold: #1a6cc4;
+  --gold-light: #dbeeff;
+  --gold-hover: #155aa8;
+  --gauge-suitable: #22c55e;
+  --gauge-match: #f59e0b;
+  --gauge-developing: #ef4444;
   --radius: 0.625rem;
   --radius-sm: 0.375rem;
-  --shadow-xs: 0 1px 2px 0 rgb(43 26 14 / 0.05);
-  --shadow-sm: 0 1px 3px 0 rgb(43 26 14 / 0.07), 0 1px 2px -1px rgb(43 26 14 / 0.05);
-  --shadow:    0 4px 6px -1px rgb(43 26 14 / 0.08), 0 2px 4px -2px rgb(43 26 14 / 0.05);
-  --shadow-md: 0 10px 15px -3px rgb(43 26 14 / 0.10), 0 4px 6px -4px rgb(43 26 14 / 0.05);
-  --shadow-ring: 0 0 0 3px rgb(192 90 31 / 0.20);
+  --shadow-xs: 0 1px 2px 0 rgb(13 30 53 / 0.05);
+  --shadow-sm: 0 1px 3px 0 rgb(13 30 53 / 0.07), 0 1px 2px -1px rgb(13 30 53 / 0.05);
+  --shadow:    0 4px 6px -1px rgb(13 30 53 / 0.08), 0 2px 4px -2px rgb(13 30 53 / 0.05);
+  --shadow-md: 0 10px 15px -3px rgb(13 30 53 / 0.10), 0 4px 6px -4px rgb(13 30 53 / 0.05);
+  --shadow-ring: 0 0 0 3px rgb(26 108 196 / 0.20);
   --font-sans: 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-heading: 'Space Grotesk', system-ui, -apple-system, sans-serif;
   --container-max: 72rem;
@@ -48,12 +52,12 @@
   --color-page-bg: var(--muted);
   --color-card-bg: var(--card);
   --color-heading: var(--foreground);
-  --color-body-text: #4a2e1a;
+  --color-body-text: #1e3a5c;
   --color-link: var(--primary);
   --color-tag-bg: var(--secondary);
   --color-tag-text: var(--secondary-foreground);
   --color-footer: var(--footer);
-  --showcase-overlay: rgba(43, 26, 14, 0.68);
+  --showcase-overlay: rgba(13, 30, 53, 0.68);
   --font-body: var(--font-sans);
   --border-radius: var(--radius);
   --card-shadow: var(--shadow-sm);
@@ -168,7 +172,7 @@ a:hover {
 }
 
 .site-logo:hover {
-  color: #e0a820 !important;
+  color: var(--gold-hover) !important;
   opacity: 1;
 }
 
@@ -302,7 +306,7 @@ a:hover {
 }
 
 .btn-secondary:hover {
-  background-color: #cdd9ed !important;
+  background-color: var(--secondary-hover) !important;
   box-shadow: var(--shadow-xs);
 }
 
@@ -414,7 +418,7 @@ textarea.input {
 }
 
 .input:hover {
-  border-color: #9aadc8;
+  border-color: var(--input);
 }
 
 .input:focus {
@@ -470,7 +474,7 @@ textarea.input {
 .badge-accent {
   background: var(--gold-light);
   color: var(--gold-hover);
-  border-color: #f0d070;
+  border-color: var(--gold);
 }
 
 /* --- Hero --- */
@@ -511,7 +515,7 @@ textarea.input {
 }
 
 .hero__lead {
-  color: #a8c0dc;
+  color: var(--header-foreground);
   font-size: 0.9375rem;
   margin-bottom: 1.25rem;
 }
@@ -520,7 +524,7 @@ textarea.input {
 /* Gold promo strip */
 .promo-strip {
   background: var(--gold-light);
-  border-bottom: 1px solid #e8c96a;
+  border-bottom: 1px solid var(--gold);
   padding: 1rem 0;
 }
 
@@ -780,15 +784,15 @@ textarea.input {
 .alert-error {
   background: var(--error);
   color: var(--error-foreground);
-  border-color: #f5c4c4;
+  border-color: var(--destructive);
   border-left-color: var(--destructive);
 }
 
 .alert-success {
   background: var(--success);
   color: var(--success-foreground);
-  border-color: #b8e2c0;
-  border-left-color: #1a5c30;
+  border-color: var(--success-foreground);
+  border-left-color: var(--success-foreground);
 }
 
 .empty-state {
@@ -828,7 +832,7 @@ textarea.input {
 }
 
 .site-footer a {
-  color: #a8c0dc !important;
+  color: var(--footer-foreground) !important;
 }
 
 .site-footer a:hover {
@@ -883,7 +887,7 @@ header.site-header,
 }
 
 .text-gray-200 {
-  color: #a8c0dc !important;
+  color: var(--footer-foreground) !important;
 }
 
 /* ============================================================
@@ -912,7 +916,7 @@ header.site-header,
   display: block;
   font-size: 0.75rem;
   font-weight: 600;
-  color: #6b7280;
+  color: var(--muted-foreground);
   margin-bottom: 0.5rem;
   text-transform: uppercase;
 }
@@ -923,9 +927,9 @@ header.site-header,
   grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
   padding: 1rem;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--border);
   border-radius: 0.5rem;
-  background: #f9fafb;
+  background: var(--muted);
 }
 
 /* Skills checkbox label */
@@ -944,7 +948,7 @@ header.site-header,
 /* Skills text span */
 .ternary-skill-text {
   font-size: 0.875rem;
-  color: #374151;
+  color: var(--foreground);
 }
 
 /* Button container */
@@ -1006,14 +1010,14 @@ header.site-header,
 .ternary-gauge-percent {
   font-size: 2.25rem;
   font-weight: 700;
-  color: #111827;
+  color: var(--foreground);
 }
 
 /* Gauge label text */
 .ternary-gauge-label {
   font-size: 0.75rem;
   font-weight: 600;
-  color: #6b7280;
+  color: var(--muted-foreground);
   text-transform: uppercase;
 }
 
@@ -1036,7 +1040,7 @@ header.site-header,
 .ternary-advice-title {
   font-size: 0.75rem;
   font-weight: 600;
-  color: #6b7280;
+  color: var(--muted-foreground);
   margin-bottom: 1rem;
   text-transform: uppercase;
 }
@@ -1044,7 +1048,7 @@ header.site-header,
 /* Advice card text */
 .ternary-advice-text {
   font-size: 1rem;
-  color: #374151;
+  color: var(--foreground);
   line-height: 1.6;
 }
 
@@ -1052,21 +1056,21 @@ header.site-header,
 .ternary-empty-state {
   text-align: center;
   padding: 3rem;
-  background: #f9fafb;
-  border: 1px solid #e5e7eb;
+  background: var(--muted);
+  border: 1px solid var(--border);
   border-radius: var(--radius);
 }
 
 /* Empty state icon */
 .ternary-empty-icon {
   font-size: 2rem;
-  color: #9ca3af;
+  color: var(--muted-foreground);
   margin-bottom: 1rem;
 }
 
 /* Empty state text */
 .ternary-empty-text {
-  color: #6b7280;
+  color: var(--muted-foreground);
   font-size: 1rem;
 }
 
@@ -1094,17 +1098,17 @@ header.site-header,
 
 /* Gauge status - Highly Suitable (Green) */
 .ternary-gauge-status.highly-suitable {
-  color: #22c55e !important;
+  color: var(--gauge-suitable) !important;
 }
 
 /* Gauge status - Strong Match (Amber) */
 .ternary-gauge-status.strong-match {
-  color: #f59e0b !important;
+  color: var(--gauge-match) !important;
 }
 
 /* Gauge status - Developing (Red) */
 .ternary-gauge-status.developing {
-  color: #ef4444 !important;
+  color: var(--gauge-developing) !important;
 }
 
 /* ============================================================
