@@ -12,8 +12,8 @@
 <!-- Job Listings -->
 <section class="page-section">
     <div class="site-container">
-        <div class="section-header" style="justify-content: center; border: 1px solid #d6dce8; padding: 1rem; border-radius: 0.625rem; margin-bottom: 1rem;">
-            <h2 class="section-title" style="font-size: 1.8rem;">Recent Jobs</h2>
+        <div class="section-header recent-jobs-header">
+            <h2 class="section-title recent-jobs-title">Recent Jobs</h2>
         </div>
         <div class="jobs-grid mb-6">
             <?php foreach (isset($listings) ? $listings : [] as $listing): ?>
@@ -21,7 +21,7 @@
             <?php endforeach; ?>
         </div>
 
-        <div style="text-align: center;">
+        <div class="jobs-center-container">
             <a href="listings" class="link-more">
                 <i class="fa fa-arrow-alt-circle-right"></i>
                 Show All Jobs

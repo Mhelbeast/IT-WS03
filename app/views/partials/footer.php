@@ -1,5 +1,5 @@
 <footer class="site-footer">
-    <div class="site-container flex justify-between items-center" style="display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: space-between; align-items: center;">
+    <div class="site-container site-footer-container">
         <span>&copy; <?= date('Y') ?> JobSeeker. All rights reserved.</span>
         <a href="/listings">Browse jobs</a>
     </div>

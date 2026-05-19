@@ -1,4 +1,4 @@
-<section class="site-container page-section" style="padding-top: 0;">
+<section class="site-container page-section bottom-banner-section">
     <div class="cta-banner">
         <div>
             <h2 class="cta-banner__title">Hiring for your team?</h2>

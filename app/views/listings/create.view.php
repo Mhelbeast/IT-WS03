@@ -3,8 +3,8 @@
 
 <main class="auth-page">
     <div class="card auth-card auth-card--wide">
-        <header class="card-header" style="text-align: center; padding-bottom: 0;">
-            <h1 class="section-title" style="font-size: 1.25rem;">Post a job listing</h1>
+        <header class="card-header auth-card-header">
+            <h1 class="section-title auth-page-title">Post a job listing</h1>
             <p class="section-subtitle">Share role details so candidates can find you</p>
         </header>
 
@@ -66,9 +66,9 @@
                     </div>
                 </div>
 
-                <div style="display: flex; flex-direction: column; gap: 0.5rem; margin-top: 1rem;">
-                    <button type="submit" class="btn btn-primary" style="width: 100%;">Save listing</button>
-                    <a href="/" class="btn btn-outline" style="width: 100%; text-align: center;">Cancel</a>
+                <div class="listing-form-buttons">
+                    <button type="submit" class="btn btn-primary btn-full-width">Save listing</button>
+                    <a href="/" class="btn btn-outline btn-full-width-centered">Cancel</a>
                 </div>
             </form>
         </div>

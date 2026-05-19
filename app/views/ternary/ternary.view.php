@@ -225,14 +225,14 @@ if ($salary !== null && $allSkillsSelected > 0) {
                                 stroke-width="8"
                                 stroke-dasharray="' . round(($primaryPercent / 100) * 565, 2) . ' 565"
                                 stroke-linecap="round"
-                                style="transform: rotate(-90deg); transform-origin: 100px 100px;" />
+                                class="ternary-gauge-circle" />
                         </svg>
                         <div class="ternary-gauge-text">
                             <div class="ternary-gauge-percent">' . $primaryPercent . '%</div>
                             <div class="ternary-gauge-label">' . ($primaryCategory ? $primaryCategory : 'Skills') . '</div>
                         </div>
                     </div>
-                    <p class="ternary-gauge-status" style="color: ' . ($primaryPercent >= 100 ? '#22c55e' : ($primaryPercent >= 50 ? '#f59e0b' : '#ef4444')) . ';">' . ($primaryPercent >= 100 ? 'Highly Suitable' : ($primaryPercent >= 50 ? 'Strong Match' : 'Developing')) . '</p>
+                    <p class="ternary-gauge-status ' . ($primaryPercent >= 100 ? 'highly-suitable' : ($primaryPercent >= 50 ? 'strong-match' : 'developing')) . '">' . ($primaryPercent >= 100 ? 'Highly Suitable' : ($primaryPercent >= 50 ? 'Strong Match' : 'Developing')) . '</p>
                 </div>
 
                 <!-- Advice Card -->

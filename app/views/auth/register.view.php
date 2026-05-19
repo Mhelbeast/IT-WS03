@@ -4,15 +4,15 @@
 
 <main class="auth-page">
     <div class="card auth-card">
-        <header class="card-header" style="text-align: center; padding-bottom: 0;">
-            <h1 class="section-title" style="font-size: 1.25rem;">Create account</h1>
+        <header class="card-header auth-card-header">
+            <h1 class="section-title auth-page-title">Create account</h1>
             <p class="section-subtitle">Join JobSeeker to post and manage listings</p>
         </header>
 
         <div class="card-content">
             <?php if (isset($errors) && count($errors)): ?>
                 <div class="alert alert-error">
-                    <ul style="margin: 0; padding-left: 1.25rem;">
+                    <ul class="auth-error-list">
                         <?php foreach ($errors as $err): ?>
                             <li><?= htmlspecialchars($err) ?></li>
                         <?php endforeach; ?>
@@ -44,11 +44,11 @@
                     <input type="password" id="password_confirm" name="password_confirm" class="input" required />
                 </div>
 
-                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;">
+                <button type="submit" class="btn btn-primary auth-submit-btn">
                     Register
                 </button>
 
-                <p style="text-align: center; margin-top: 1rem; font-size: 0.8125rem; color: var(--muted-foreground);">
+                <p class="auth-footer-text">
                     Already have an account?
                     <a href="/auth/login">Sign in</a>
                 </p>

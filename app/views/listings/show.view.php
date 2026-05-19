@@ -3,15 +3,15 @@
 
 <main class="page-section">
     <div class="site-container">
-        <a href="/listings" class="btn btn-ghost btn-sm" style="margin-bottom: 1rem; padding-left: 0;">
+        <a href="/listings" class="btn btn-ghost btn-sm listing-back-btn">
             <i class="fa fa-arrow-left" aria-hidden="true"></i> Back to listings
         </a>
 
         <article class="card">
             <header class="card-header">
-                <h1 style="font-size: 1.375rem; margin: 0;"><?= htmlspecialchars($listing->title) ?></h1>
+                <h1 class="listing-detail-title"><?= htmlspecialchars($listing->title) ?></h1>
                 <?php if (!empty($listing->company)): ?>
-                    <p class="section-subtitle" style="margin-top: 0.25rem;"><?= htmlspecialchars($listing->company) ?></p>
+                    <p class="section-subtitle listing-company-name"><?= htmlspecialchars($listing->company) ?></p>
                 <?php endif; ?>
             </header>
 
@@ -27,34 +27,34 @@
                     </div>
                     <div class="detail-meta__item">
                         <dt class="detail-meta__label">Contact</dt>
-                        <dd class="detail-meta__value" style="font-size: 0.8125rem;"><?= htmlspecialchars($listing->email) ?></dd>
+                        <dd class="detail-meta__value detail-meta__value--small"><?= htmlspecialchars($listing->email) ?></dd>
                     </div>
                 </dl>
 
                 <?php if (!empty($listing->description)): ?>
                     <section class="detail-block">
                         <h2>Description</h2>
-                        <p style="font-size: 0.875rem; color: var(--color-body-text);"><?= nl2br(htmlspecialchars($listing->description)) ?></p>
+                        <p class="detail-block-text"><?= nl2br(htmlspecialchars($listing->description)) ?></p>
                     </section>
                 <?php endif; ?>
 
                 <?php if (!empty($listing->requirements)): ?>
                     <section class="detail-block">
                         <h2>Requirements</h2>
-                        <p style="font-size: 0.875rem; color: var(--color-body-text);"><?= nl2br(htmlspecialchars($listing->requirements)) ?></p>
+                        <p class="detail-block-text"><?= nl2br(htmlspecialchars($listing->requirements)) ?></p>
                     </section>
                 <?php endif; ?>
 
                 <?php if (!empty($listing->benefits)): ?>
                     <section class="detail-block">
                         <h2>Benefits</h2>
-                        <p style="font-size: 0.875rem; color: var(--color-body-text);"><?= nl2br(htmlspecialchars($listing->benefits)) ?></p>
+                        <p class="detail-block-text"><?= nl2br(htmlspecialchars($listing->benefits)) ?></p>
                     </section>
                 <?php endif; ?>
 
                 <section class="detail-block">
                     <h2>How to apply</h2>
-                    <p style="font-size: 0.875rem; color: var(--color-body-text);">
+                    <p class="detail-block-text">
                         Email: <a href="mailto:<?= htmlspecialchars($listing->email) ?>"><?= htmlspecialchars($listing->email) ?></a>
                         <?php if (!empty($listing->phone)): ?>
                             · Phone: <?= htmlspecialchars($listing->phone) ?>

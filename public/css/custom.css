@@ -1104,3 +1104,179 @@ header.site-header,
   font-size: 2.5rem;
   margin-bottom: 0.5rem;
 }
+
+/* SVG gauge circle transform */
+.ternary-gauge-circle {
+  transform: rotate(-90deg);
+  transform-origin: 100px 100px;
+}
+
+/* Gauge status - Highly Suitable (Green) */
+.ternary-gauge-status.highly-suitable {
+  color: #22c55e !important;
+}
+
+/* Gauge status - Strong Match (Amber) */
+.ternary-gauge-status.strong-match {
+  color: #f59e0b !important;
+}
+
+/* Gauge status - Developing (Red) */
+.ternary-gauge-status.developing {
+  color: #ef4444 !important;
+}
+
+/* ============================================================
+   ERROR PAGE (404)
+   ============================================================ */
+
+/* Error page empty state */
+.error-page-state {
+  max-width: 28rem;
+  margin: 2rem auto;
+}
+
+/* Error page title */
+.error-page-title {
+  margin-bottom: 0.5rem;
+}
+
+/* Error page subtitle */
+.error-page-subtitle {
+  margin-bottom: 1rem;
+}
+
+/* ============================================================
+   AUTH PAGES (Login & Register)
+   ============================================================ */
+
+/* Auth card header centered */
+.auth-card-header {
+  text-align: center;
+  padding-bottom: 0;
+}
+
+/* Auth page title */
+.auth-page-title {
+  font-size: 1.25rem;
+}
+
+/* Auth form submit button */
+.auth-submit-btn {
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+/* Auth page footer text with link */
+.auth-footer-text {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.8125rem;
+  color: var(--muted-foreground);
+}
+
+/* Error list in auth forms */
+.auth-error-list {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+/* ============================================================
+   LISTING DETAIL PAGE
+   ============================================================ */
+
+/* Back button with custom spacing */
+.listing-back-btn {
+  margin-bottom: 1rem;
+  padding-left: 0;
+}
+
+/* Listing detail title */
+.listing-detail-title {
+  font-size: 1.375rem;
+  margin: 0;
+}
+
+/* Listing company name */
+.listing-company-name {
+  margin-top: 0.25rem;
+}
+
+/* Detail meta value for contact info */
+.detail-meta__value--small {
+  font-size: 0.8125rem;
+}
+
+/* Detail block text content */
+.detail-block-text {
+  font-size: 0.875rem;
+  color: var(--color-body-text);
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+
+/* Footer container flex layout */
+.site-footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ============================================================
+   HOME PAGE
+   ============================================================ */
+
+/* Recent jobs section header */
+.recent-jobs-header {
+  justify-content: center;
+  border: 1px solid var(--border);
+  padding: 1rem;
+  border-radius: var(--radius);
+  margin-bottom: 1rem;
+}
+
+/* Recent jobs title */
+.recent-jobs-title {
+  font-size: 1.8rem;
+}
+
+/* Show all jobs center container */
+.jobs-center-container {
+  text-align: center;
+}
+
+/* ============================================================
+   PARTIALS
+   ============================================================ */
+
+/* Bottom banner section (reduced padding) */
+.bottom-banner-section {
+  padding-top: 0;
+}
+
+/* Full width button in cards */
+.btn-full-width {
+  width: 100%;
+}
+
+/* Full width button centered */
+.btn-full-width-centered {
+  width: 100%;
+  text-align: center;
+}
+
+/* ============================================================
+   LISTING CREATE PAGE
+   ============================================================ */
+
+/* Form button group */
+.listing-form-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}

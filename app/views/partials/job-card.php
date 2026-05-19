@@ -21,7 +21,7 @@ $salary = '$' . htmlspecialchars(number_format((float)$job->salary, 0));
     ?>
     <p class="job-card__desc"><?= htmlspecialchars($desc) ?></p>
     <div class="job-card__footer">
-        <a href="/listings/<?= htmlspecialchars($job->id) ?>" class="btn btn-outline btn-sm" style="width: 100%;">
+        <a href="/listings/<?= htmlspecialchars($job->id) ?>" class="btn btn-outline btn-sm btn-full-width">
             View details
         </a>
     </div>
